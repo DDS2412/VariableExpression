@@ -8,6 +8,6 @@ public class Program {
         FileWorkerService fileService = new FileWorkerService();
         Node node = fileService.getNode(args[0]);
 
-        Node n = node.concatNodes(node.getLeft(), node.getRight());
+        fileService.saveNode(node, "test.txt");
     }
 }
