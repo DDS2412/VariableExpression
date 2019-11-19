@@ -2,15 +2,15 @@ package model.operations;
 
 import model.Node;
 
-public class Addition implements Operation {
+public class Equality implements Operation {
     @Override
     public Operation getOppositeOperation() {
-        return new Subtraction();
+        return null;
     }
 
     @Override
     public String getValue() {
-        return "+";
+        return "=";
     }
 
     @Override

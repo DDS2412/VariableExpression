@@ -9,6 +9,11 @@ public class Subtraction implements Operation {
     }
 
     @Override
+    public String getValue() {
+        return "-";
+    }
+
+    @Override
     public Node expressNode(Node root, String variable) {
         return null;
     }
