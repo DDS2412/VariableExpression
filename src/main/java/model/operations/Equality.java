@@ -1,5 +1,6 @@
 package model.operations;
 
+import lombok.ToString;
 import model.Node;
 
 public class Equality implements Operation {
@@ -9,7 +10,7 @@ public class Equality implements Operation {
     }
 
     @Override
-    public String getValue() {
+    public String toString() {
         return "=";
     }
 

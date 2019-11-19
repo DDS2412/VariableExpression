@@ -9,7 +9,7 @@ public class Subtraction implements Operation {
     }
 
     @Override
-    public String getValue() {
+    public String toString() {
         return "-";
     }
 

@@ -9,7 +9,7 @@ public class Addition implements Operation {
     }
 
     @Override
-    public String getValue() {
+    public String toString() {
         return "+";
     }
 
