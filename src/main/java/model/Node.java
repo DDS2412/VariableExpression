@@ -24,15 +24,15 @@ public class Node {
         this.operation = operation;
     }
 
-    public boolean hasValriable(String variable){
+    public boolean hasVariable(String variable){
         boolean res = false;
-        res |= hasValriable(this.getLeft(), variable, res);
-        res |= hasValriable(this.getRight(), variable, res);
+        res |= hasVariable(this.getLeft(), variable, res);
+        res |= hasVariable(this.getRight(), variable, res);
 
         return res;
     }
 
-    private boolean hasValriable(Node child, String variable, boolean res) {
+    private boolean hasVariable(Node child, String variable, boolean res) {
         if(!res){
             if(child != null
                     && child.getValue() != null
@@ -40,8 +40,8 @@ public class Node {
                 res |= true;
             } else {
                 if(child != null){
-                    res |= hasValriable(child.getLeft(), variable, res);
-                    res |= hasValriable(child.getRight(), variable, res);
+                    res |= hasVariable(child.getLeft(), variable, res);
+                    res |= hasVariable(child.getRight(), variable, res);
                 }
             }
         }
