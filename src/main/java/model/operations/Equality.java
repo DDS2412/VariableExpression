@@ -14,7 +14,12 @@ public class Equality implements Operation {
     }
 
     @Override
-    public Node expressNode(Node root, String variable) {
-        return root;
+    public int getOrder() {
+        return 0;
+    }
+
+    @Override
+    public String getDefaultValue() {
+        return "0";
     }
 }

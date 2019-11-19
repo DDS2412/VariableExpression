@@ -13,6 +13,7 @@ public interface Operation {
             Node expressedLeft = left.getOperation().expressNode(left,variable);
             if (right.hasVariable(variable)){
                 Node expressedRight = right.getOperation().expressNode(left,variable);
+
             } else {
                 if (expressedLeft == null){
                     root = left;
