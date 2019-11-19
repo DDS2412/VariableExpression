@@ -7,6 +7,6 @@ public class Program {
     public static void main(final String[] args) throws IOException {
         FileWorkerService fileService = new FileWorkerService();
         Node node = fileService.getNode(args[0]);
-        System.out.println(node.hasValriable(node.getRight(), "c"));
+        System.out.println(node.hasValriable("c"));
     }
 }

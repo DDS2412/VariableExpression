@@ -1,6 +1,5 @@
 package model;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -25,34 +24,24 @@ public class Node {
         this.operation = operation;
     }
 
-    public boolean hasValriable(Node child, String variable){
+    public boolean hasValriable(String variable){
         boolean res = false;
-        if(!res){
-            if(child != null && child.getValue().equals(variable)){
-                res |= true;
-            } else {
-                if(child != null){
-                    res |= hasValriable(child.getLeft(), variable, res);
-                    res |= hasValriable(child.getRight(), variable, res);
-                } else {
-                    res |= false;
-                }
-            }
-        }
+        res |= hasValriable(this.getLeft(), variable, res);
+        res |= hasValriable(this.getRight(), variable, res);
 
         return res;
     }
 
-    public boolean hasValriable(Node child, String variable, boolean res) {
+    private boolean hasValriable(Node child, String variable, boolean res) {
         if(!res){
-            if(child != null && child.getValue().equals(variable)){
+            if(child != null
+                    && child.getValue() != null
+                    && child.getValue().equals(variable)){
                 res |= true;
             } else {
                 if(child != null){
                     res |= hasValriable(child.getLeft(), variable, res);
                     res |= hasValriable(child.getRight(), variable, res);
-                } else {
-                    res |= false;
                 }
             }
         }
