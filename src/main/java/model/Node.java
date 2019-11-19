@@ -24,4 +24,39 @@ public class Node {
     public Node(Operation operation) {
         this.operation = operation;
     }
+
+    public boolean hasValriable(Node child, String variable){
+        boolean res = false;
+        if(!res){
+            if(child != null && child.getValue().equals(variable)){
+                res |= true;
+            } else {
+                if(child != null){
+                    res |= hasValriable(child.getLeft(), variable, res);
+                    res |= hasValriable(child.getRight(), variable, res);
+                } else {
+                    res |= false;
+                }
+            }
+        }
+
+        return res;
+    }
+
+    public boolean hasValriable(Node child, String variable, boolean res) {
+        if(!res){
+            if(child != null && child.getValue().equals(variable)){
+                res |= true;
+            } else {
+                if(child != null){
+                    res |= hasValriable(child.getLeft(), variable, res);
+                    res |= hasValriable(child.getRight(), variable, res);
+                } else {
+                    res |= false;
+                }
+            }
+        }
+
+        return res;
+    }
 }
