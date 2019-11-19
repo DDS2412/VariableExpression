@@ -32,6 +32,18 @@ public class Node {
         return res;
     }
 
+    public Node concatNodes(Node leftNode, Node rightNode) {
+        return  new Node()
+                .setLeft(leftNode)
+                .setRight(rightNode)
+                .setOperation(
+                        leftNode != null
+                        && leftNode.getOperation() != null ?
+                                leftNode
+                                        .getOperation()
+                                        .getOppositeOperation() : null);
+    }
+
     private boolean hasVariable(Node child, String variable, boolean res) {
         if(!res){
             if(child != null
@@ -49,3 +61,4 @@ public class Node {
         return res;
     }
 }
+
