@@ -10,7 +10,7 @@ public class Division implements Operation {
 
     @Override
     public int getOrder() {
-        return 0;
+        return 2;
     }
 
     @Override

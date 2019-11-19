@@ -1,9 +1,6 @@
 package services;
 
-import model.operations.Addition;
-import model.operations.Equality;
-import model.operations.Operation;
-import model.operations.Subtraction;
+import model.operations.*;
 
 public class OperationService {
 
@@ -15,6 +12,12 @@ public class OperationService {
                 }
                 case "-": {
                     return new Subtraction();
+                }
+                case "*": {
+                    return new Multiplication();
+                }
+                case "/": {
+                    return new Division();
                 }
                 case "=": {
                     return new Equality();

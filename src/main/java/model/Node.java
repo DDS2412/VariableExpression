@@ -60,5 +60,30 @@ public class Node {
 
         return res;
     }
+
+    @Override
+    public String toString(){
+        String result = "";
+        boolean isSquared = this.getOperation() != null && this.getOperation().getOrder() > 1;
+        if (isSquared){
+            result += "(";
+        }
+        if (left != null){
+            result += left.toString();
+        }
+        if (this.getOperation() != null){
+            result += this.getOperation().toString();
+        }
+        if (this.getValue() != null){
+            result += this.getValue();
+        }
+        if (right != null){
+            result += right.toString();
+        }
+        if (isSquared){
+            result += ")";
+        }
+        return result;
+    }
 }
 
