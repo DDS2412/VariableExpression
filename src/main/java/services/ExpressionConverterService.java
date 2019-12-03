@@ -1,0 +1,109 @@
+package services;
+
+import dto.ArgumentDto;
+import dto.ExpressionDto;
+import dto.HeadDto;
+import exception.ConvertException;
+import model.Node;
+import model.operations.*;
+
+import java.util.List;
+
+public class ExpressionConverterService {
+    public boolean tryToConvertExpressionToNode(ExpressionDto expressionDto){
+        boolean isConvert = true;
+        try {
+            convertExpressionToNode(expressionDto);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            isConvert = false;
+        }
+
+        return isConvert;
+    }
+
+    public Node convertExpressionToNode(ExpressionDto expressionDto) throws ConvertException {
+        return convertExpressionToNode(new Node(), expressionDto);
+    }
+
+    private Node convertExpressionToNode(Node node, ExpressionDto expressionDto) throws ConvertException {
+        node.setOperation(convertOperationFromHead(expressionDto.getHead()));
+
+        switch (getNumberArguments(expressionDto.getArguments())) {
+            case 0: {
+                node
+                        .setLeft(null)
+                        .setRight(null);
+                break;
+            }
+            case 1: {
+                node
+                        .setRight(null)
+                        .setLeft(convertArgumentsToNode(new Node(), expressionDto.getArguments().get(0)));
+
+                break;
+            }
+            case 2: {
+                node = node.setLeft(convertArgumentsToNode(new Node(), expressionDto.getArguments().get(0)));
+                node.setRight(convertArgumentsToNode(new Node(), expressionDto.getArguments().get(1)));
+
+                break;
+            }
+        }
+
+        return node;
+    }
+
+    private Node convertArgumentsToNode(Node node, ArgumentDto argumentDto) throws ConvertException {
+        if(argumentDto.getConstant() != null){
+            node
+                    .setValue(argumentDto.getConstant())
+                    .setRight(null);
+        } else if(argumentDto.getSymbol() != null) {
+            // TODO добавить проверку на то, что символ не функция
+            node
+                    .setValue(argumentDto.getSymbol())
+                    .setRight(null);
+        } else {
+            Node currentRoot = convertExpressionToNode(new Node(), argumentDto.getExpression());
+            node
+                    .setLeft(currentRoot.getLeft())
+                    .setRight(currentRoot.getRight())
+                    .setOperation(currentRoot.getOperation());
+        }
+
+        return node;
+    }
+
+    private int getNumberArguments(List<ArgumentDto> argumentDtos) throws ConvertException {
+        if(argumentDtos.size() > 0 && argumentDtos.size() < 3) {
+            for (ArgumentDto argumentDto : argumentDtos) {
+                checkArgumentValidation(argumentDto);
+            }
+        } else{
+            throw new ConvertException(String.format("Количество аргументов %d невозможно преобразовать в бинарное дерево", argumentDtos.size()));
+        }
+
+        return argumentDtos.size();
+    }
+
+    private void checkArgumentValidation(ArgumentDto argumentDto) throws ConvertException {
+        if(!(argumentDto.getSymbol() == null && argumentDto.getConstant() == null && argumentDto.getExpression() != null ||
+                argumentDto.getSymbol() == null && argumentDto.getConstant() != null && argumentDto.getExpression() == null ||
+                argumentDto.getSymbol() != null && argumentDto.getConstant() == null && argumentDto.getExpression() == null)) {
+            throw new ConvertException(String.format("Неверный формат аргумента %s", argumentDto));
+        }
+    }
+
+    private Operation convertOperationFromHead(HeadDto headDto) throws ConvertException {
+        switch (headDto.getSymbol()){
+            case "+" : return new Addition();
+            case "-" : return new Subtraction();
+            case "*" : return new Multiplication();
+            case "=" : return new Equality();
+            case "/" : return new Division();
+            default: throw new ConvertException("Недопустимый символ");
+        }
+    }
+}
+
