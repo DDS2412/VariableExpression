@@ -48,6 +48,13 @@ public class ExpressionService {
         Node withVariable = root.getLeft();
         Node withoutVariable = root.getRight();
 
+        // Swapping values if x isn't at left side
+        if (withoutVariable.hasVariable(variable)){
+            Node tmpNode = withoutVariable;
+            withoutVariable = withVariable;
+            withVariable = tmpNode;
+        }
+
         Node result = withoutVariable;
 
         do {
