@@ -1,19 +1,22 @@
 {
-  "head" : {
-    "symbol" : "+"
-  },
-  "arguments" : [
-    {"constant" : "10"},
-    {
-      "expression": {
-        "head": {
-          "symbol": "*"
-        },
-        "arguments": [
-          {"symbol": "a"},
-          {"symbol": "b"}
-        ]
+  "expression" : {
+    "head" : {
+      "symbol" : "+"
+    },
+    "arguments" : [
+      {"constant" : "10"},
+      {
+        "expression": {
+          "head": {
+            "symbol": "*"
+          },
+          "arguments": [
+            {"symbol": "a"},
+            {"symbol": "b"}
+          ]
+        }
       }
-    }
-  ]
+    ]
+  },
+  "variable": "a"
 }

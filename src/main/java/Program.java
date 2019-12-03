@@ -1,4 +1,5 @@
 import dto.ExpressionDto;
+import dto.InputDto;
 import exception.ConvertException;
 import model.Node;
 import services.ExpressionConverterService;
@@ -10,12 +11,12 @@ public class Program {
     public static void main(final String[] args) throws ConvertException {
         FileWorkerService fileService = new FileWorkerService();
 
-        ExpressionDto expressionDto = fileService.getExpressionDto(args[0]);
+        InputDto inputDto = fileService.getInputDto(args[0]);
         ExpressionConverterService converterService = new ExpressionConverterService();
 
-        if(converterService.tryToConvertExpressionToNode(expressionDto)){
-            Node root =  converterService.convertExpressionToNode(expressionDto);
-            System.out.println(root);
+        if(converterService.tryToConvertExpressionToNode(inputDto.getExpression())){
+            Node root =  converterService.convertExpressionToNode(inputDto.getExpression());
+            fileService.saveNode(root, "sym.txt");
         } else {
 
         }
