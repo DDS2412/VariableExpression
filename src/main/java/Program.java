@@ -1,3 +1,4 @@
+import dto.ExpressionDto;
 import dto.InputDto;
 import exception.ConvertException;
 import model.Node;
@@ -16,8 +17,8 @@ public class Program {
             Node root =  converterService.convertExpressionToNode(inputDto.getExpression());
             ExpressionService service = new ExpressionService();
             Node expressedNode = service.express(root, inputDto.getVariable());
-            System.out.println(expressedNode);
-            fileService.saveExpression(expressedNode.toString(), args[1]);
+            ExpressionDto expressionDto = converterService.convertNodeToExpression(expressedNode);
+            fileService.saveExpression(expressionDto.toString(), args[1]);
         } else {
             System.out.println(inputDto.getExpression());
             fileService.saveExpression(inputDto.getExpression().toString(), args[2]);

@@ -32,7 +32,7 @@ public class ExpressionDto {
             result += "";
         } else{
             result += head.getSymbol().equals("=") ? "" : "(";
-            result += String.format("%s %s %s", arguments.get(0), head.getSymbol(), arguments.get(1));
+            result += String.format("%s %s %s", arguments.get(0), head.getSymbol(), arguments.size() == 2 ? arguments.get(1) : "");
             result += head.getSymbol().equals("=") ? "" : ")";
         }
 

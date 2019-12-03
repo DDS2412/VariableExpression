@@ -7,6 +7,9 @@ import exception.ConvertException;
 import model.Node;
 import model.operations.*;
 
+import java.beans.Expression;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExpressionConverterService {
@@ -24,6 +27,31 @@ public class ExpressionConverterService {
 
     public Node convertExpressionToNode(ExpressionDto expressionDto) throws ConvertException {
         return convertExpressionToNode(new Node(), expressionDto);
+    }
+
+    public ExpressionDto convertNodeToExpression(Node node) {
+        ExpressionDto expressionDto = new ExpressionDto();
+
+        List<ArgumentDto> argumentDtos = new ArrayList<>();
+        argumentDtos.add(convertNodeToArgumentDto(node.getLeft()));
+        argumentDtos.add(convertNodeToArgumentDto(node.getRight()));
+
+        return expressionDto
+                .setHead(new HeadDto().setSymbol(node.getOperation() != null ? node.getOperation().toString() : null))
+                .setArguments(argumentDtos);
+    }
+
+    private ArgumentDto convertNodeToArgumentDto(Node node){
+        if(node != null && node.getValue() != null){
+
+            if(tryParseDouble(node.getValue())){
+                return  new ArgumentDto().setConstant(node.getValue());
+            } else{
+                return new ArgumentDto().setSymbol(node.getValue());
+            }
+        } else {
+            return new ArgumentDto().setExpression(convertNodeToExpression(node));
+        }
     }
 
     private Node convertExpressionToNode(Node node, ExpressionDto expressionDto) throws ConvertException {
@@ -60,7 +88,6 @@ public class ExpressionConverterService {
                     .setValue(argumentDto.getConstant())
                     .setRight(null);
         } else if(argumentDto.getSymbol() != null) {
-            // TODO добавить проверку на то, что символ не функция
             node
                     .setValue(argumentDto.getSymbol())
                     .setRight(null);
@@ -105,6 +132,15 @@ public class ExpressionConverterService {
             case "^" : return new Pow();
             case "^1/" : return new SquarePow();
             default: throw new ConvertException("Недопустимый символ");
+        }
+    }
+
+    private boolean tryParseDouble(String str){
+        try{
+            Double.parseDouble(str);
+            return true;
+        } catch (Exception ex){
+            return false;
         }
     }
 }
