@@ -22,6 +22,12 @@ public class OperationService {
                 case "=": {
                     return new Equality();
                 }
+                case "^": {
+                    return new Pow();
+                }
+                case "^1/": {
+                    return new SquarePow();
+                }
             }
         }
 

@@ -102,6 +102,8 @@ public class ExpressionConverterService {
             case "*" : return new Multiplication();
             case "=" : return new Equality();
             case "/" : return new Division();
+            case "^" : return new Pow();
+            case "^1/" : return new SquarePow();
             default: throw new ConvertException("Недопустимый символ");
         }
     }
