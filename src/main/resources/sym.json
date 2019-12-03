@@ -1,9 +1,10 @@
 {
   "expression" : {
     "head" : {
-      "symbol" : "+"
+      "symbol" : "="
     },
     "arguments" : [
+
       {"constant" : "10"},
       {
         "expression": {

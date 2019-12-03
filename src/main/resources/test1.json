@@ -1,9 +1,0 @@
-{
-  "right": { "value" :  "c" },
-  "operation" : "=",
-  "left" : {
-    "right" : { "value" :  "b"},
-    "operation" : "*",
-    "left" : {"value" : "a"}
-  }
-}
