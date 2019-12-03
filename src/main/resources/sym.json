@@ -9,7 +9,7 @@
       {
         "expression": {
           "head": {
-            "symbol": "*"
+            "symbol": "^1/"
           },
           "arguments": [
             {"symbol": "a"},

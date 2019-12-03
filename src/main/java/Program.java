@@ -1,12 +1,9 @@
-import dto.ExpressionDto;
 import dto.InputDto;
 import exception.ConvertException;
 import model.Node;
 import services.ExpressionConverterService;
 import services.ExpressionService;
 import services.FileWorkerService;
-
-import java.io.IOException;
 
 public class Program {
     public static void main(final String[] args) throws ConvertException {
@@ -19,12 +16,11 @@ public class Program {
             Node root =  converterService.convertExpressionToNode(inputDto.getExpression());
             ExpressionService service = new ExpressionService();
             Node expressedNode = service.express(root, inputDto.getVariable());
-            fileService.saveNode(expressedNode, "sym.txt");
+            System.out.println(expressedNode);
+            fileService.saveExpression(expressedNode.toString(), args[1]);
         } else {
-
+            System.out.println(inputDto.getExpression());
+            fileService.saveExpression(inputDto.getExpression().toString(), args[2]);
         }
-        //Node node = fileService.getNode(args[0]);
-
-        //fileService.saveNode(node.transferRightNode(), "test.txt");
     }
 }

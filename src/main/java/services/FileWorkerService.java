@@ -22,11 +22,11 @@ public class FileWorkerService {
         return getInputDtoFromJson(jsonFile);
     }
 
-    public boolean saveNode(Node node, String fileName) {
+    public boolean saveExpression(String str, String fileName) {
         File file = getFileFromResources(fileName);
         try {
             if(file.createNewFile()){
-                String nodeToString = String.format("`%s`", node.toString());
+                String nodeToString = String.format("`%s`", str);
                 Files.write(Paths.get(file.getPath()), nodeToString.getBytes());
             }
         } catch (IOException e) {
