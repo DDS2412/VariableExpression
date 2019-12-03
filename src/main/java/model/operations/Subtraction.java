@@ -13,6 +13,10 @@ public class Subtraction implements Operation {
         return "-";
     }
 
+    @Override
+    public boolean isSwiping(){
+        return true;
+    }
 
     @Override
     public int getOrder() {

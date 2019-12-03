@@ -14,6 +14,11 @@ public class Division implements Operation {
     }
 
     @Override
+    public boolean isSwiping(){
+        return true;
+    }
+
+    @Override
     public String getDefaultValue() {
         return "1";
     }

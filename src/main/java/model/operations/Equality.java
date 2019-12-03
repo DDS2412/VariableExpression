@@ -5,7 +5,7 @@ import model.Node;
 public class Equality implements Operation {
     @Override
     public Operation getOppositeOperation() {
-        return null;
+        return new Equality();
     }
 
     @Override
@@ -15,7 +15,7 @@ public class Equality implements Operation {
 
     @Override
     public int getOrder() {
-        return 0;
+        return -1;
     }
 
     @Override

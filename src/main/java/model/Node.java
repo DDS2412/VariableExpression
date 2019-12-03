@@ -26,6 +26,7 @@ public class Node {
 
     public boolean hasVariable(String variable){
         boolean res = false;
+        res |= this.getValue() != null && this.getValue().equals(variable);
         res |= hasVariable(this.getLeft(), variable, res);
         res |= hasVariable(this.getRight(), variable, res);
 
@@ -64,7 +65,7 @@ public class Node {
     @Override
     public String toString(){
         String result = "";
-        boolean isSquared = this.getOperation() != null && this.getOperation().getOrder() > 1;
+        boolean isSquared = this.getOperation() != null && this.getOperation().getOrder() > 0;
         if (isSquared){
             result += "(";
         }
