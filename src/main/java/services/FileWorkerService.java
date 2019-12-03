@@ -1,6 +1,8 @@
 package services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dto.ExpressionDto;
+import dto.InputDto;
 import model.Node;
 
 import java.io.File;
@@ -15,6 +17,11 @@ public class FileWorkerService {
         return getNodeFromJson(jsonFile);
     }
 
+    public InputDto getInputDto(String fileName){
+        File jsonFile = getFileFromResources(fileName);
+        return getInputDtoFromJson(jsonFile);
+    }
+
     public boolean saveNode(Node node, String fileName) {
         File file = getFileFromResources(fileName);
         try {
@@ -27,6 +34,17 @@ public class FileWorkerService {
         }
 
         return true;
+    }
+
+    private InputDto getInputDtoFromJson(File jsonFile) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            return mapper.readValue(jsonFile, InputDto.class);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        return new InputDto();
     }
 
     private Node getNodeFromJson(File file){

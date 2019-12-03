@@ -3,6 +3,7 @@ package model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import model.operations.Equality;
 import model.operations.Operation;
 import services.OperationService;
 
@@ -45,23 +46,6 @@ public class Node {
                                         .getOppositeOperation() : null);
     }
 
-    private boolean hasVariable(Node child, String variable, boolean res) {
-        if(!res){
-            if(child != null
-                    && child.getValue() != null
-                    && child.getValue().equals(variable)){
-                res |= true;
-            } else {
-                if(child != null){
-                    res |= hasVariable(child.getLeft(), variable, res);
-                    res |= hasVariable(child.getRight(), variable, res);
-                }
-            }
-        }
-
-        return res;
-    }
-
     @Override
     public String toString(){
         String result = "";
@@ -85,6 +69,42 @@ public class Node {
             result += ")";
         }
         return result;
+    }
+
+    private boolean hasVariable(Node child, String variable, boolean res) {
+        if(!res){
+            if(child != null
+                    && child.getValue() != null
+                    && child.getValue().equals(variable)){
+                res |= true;
+            } else {
+                if(child != null){
+                    res |= hasVariable(child.getLeft(), variable, res);
+                    res |= hasVariable(child.getRight(), variable, res);
+                }
+            }
+        }
+
+        return res;
+    }
+
+    public Node transferRightNode() {
+        Node newNode = new Node();
+        Node newRightNode = new Node();
+        Node newLeftNode = new Node();
+
+        if(this.getLeft() != null){
+            newRightNode
+                    .setLeft(this.getRight())
+                    .setRight(this.getLeft().getRight())
+                    .setOperation(this.getLeft().getOperation().getOppositeOperation());
+            newLeftNode.setLeft(this.getLeft().getLeft());
+        }
+
+        return newNode
+                .setLeft(newLeftNode)
+                .setRight(newRightNode)
+                .setOperation(new Equality());
     }
 }
 

@@ -1,7 +1,5 @@
 package model.operations;
 
-import model.Node;
-
 public class Addition implements Operation {
     @Override
     public Operation getOppositeOperation() {
@@ -12,7 +10,6 @@ public class Addition implements Operation {
     public String toString() {
         return "+";
     }
-
 
     @Override
     public int getOrder() {
